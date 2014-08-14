@@ -1,3 +1,6 @@
+ftransc 5.1.2 (14 Aug 2014):
+	+ moved from ffmpeg utility to using avconv utility
+
 ftransc 5.1.1 (19 Nov 2013):
 	+ fixed broken nautilus scripts
 	+ added convert to avi video (experimental)
