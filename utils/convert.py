@@ -47,9 +47,12 @@ def _get_external_encoder(audioformat):
 
 
 def _determine_ffmpeg_utility():
+    avutil = None
     for util in ["avconv", "ffmpeg"]:
         found = Popen(["which", util], stdout=PIPE).communicate()[0].strip()
         if found:
-            return util
-
-    raise SystemExit("ffmpeg/avconv not installed")
+            avutil = util
+            break
+    if avutil is None:
+        raise SystemExit("ffmpeg/avconv not installed")
+    return avutil

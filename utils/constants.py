@@ -25,7 +25,7 @@ EXTERNAL_ENCODER_OUTPUT_OPT = {
 
 DEPENDENCIES = {
     'cdparanoia'        : [],
-    'ffmpeg'            : list(SUPPORTED_FORMATS),
+    'avconv'            : list(SUPPORTED_FORMATS),
     }
 for audio_format, encoder in EXTERNAL_ENCODERS.iteritems():
     DEPENDENCIES[encoder] = [audio_format]
