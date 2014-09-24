@@ -4,6 +4,7 @@ from ftransc.utils.constants import (
         EXTERNAL_FORMATS, 
         EXTERNAL_ENCODERS, 
         EXTERNAL_ENCODER_OUTPUT_OPT,
+        FFMPEG_AVCONV
         )
 
 
@@ -18,8 +19,7 @@ def convert(infilename, audioformat, outputfolder=None, audiopresets=None, logfi
     outfilename = outputfolder + '/' + basefilename + '.' + audioformat
     utility = _get_external_encoder(audioformat)
 
-    encoder = _determine_ffmpeg_utility()
-    cmdline = [encoder, '-y', '-i']
+    cmdline = [FFMPEG_AVCONV, '-y', '-i']
     cmdline += [infilename]
 
     if utility not in (None, '') and (external_enc or audioformat in EXTERNAL_FORMATS):
@@ -45,14 +45,3 @@ def convert(infilename, audioformat, outputfolder=None, audiopresets=None, logfi
 def _get_external_encoder(audioformat):
     return EXTERNAL_ENCODERS.get(audioformat)
 
-
-def _determine_ffmpeg_utility():
-    avutil = None
-    for util in ["avconv", "ffmpeg"]:
-        found = Popen(["which", util], stdout=PIPE).communicate()[0].strip()
-        if found:
-            avutil = util
-            break
-    if avutil is None:
-        raise SystemExit("ffmpeg/avconv not installed")
-    return avutil
